@@ -27,19 +27,21 @@ def exercise_1():
     >>> random.randint(1,6)
     1
     """
-
-    return [1, 2, 3, 4, 5]
+    return [random.randint(1, 6) for _ in range(5)]
+   
 
 def exercise_1_variant(anumber: int) -> list:
     """
     Exercise 1 variant: Write a function which returns a list with variable number
     of dice rolls.
     """
+    return [random.randint(1, 6) for _ in range(anumber)]
 
 def exercise_2(alist): # since list is a keyword in python, you sould not use it as argument name
     """
     Exercise 2 : Write a function that returns the length of a given list
     """
+    return len(alist)
 
 def exercise_3_intro(alist):
     """
@@ -49,7 +51,7 @@ def exercise_3_intro(alist):
     """
     new_list = []
     for item in alist: # item is a variable that contains the current item if alist.
-        new_list.append(item+1)
+        new_list.append(item + 1)
     return new_list
 
 def exercise_3_intro_variant(alist):
@@ -58,13 +60,14 @@ def exercise_3_intro_variant(alist):
     of comprehensions. Same functionality, but much much more compact. We create the new_list
     'on the fly'.
     """
-    return [item+1 for item in alist]
+    return [item + 1 for item in alist]
 
 def exercise_3(list_of_number_pairs):
     """
     Write a python program that sums pairs.
     ((1, 2), (100, 20)) -> (3,120)
     """
+    return sum(sum(pair) for pair in list_of_number_pairs)
 
 def exercise_4_intro(alist_of_numbers):
     """
@@ -86,17 +89,24 @@ def exercise_4(alist_of_numbers):
     """
     Write a function to get the largest number from a list.
     """
+    if not alist_of_numbers:
+        return None
+    return max(alist_of_numbers)
 
 def exercise_5(alist_of_numbers):
     """
     Write a function to get the smallest number from a list.
     """
+    if not alist_of_numbers:
+        return None
+    return min(alist_of_numbers)
 
 def exercise_6(rand_start=1, rand_end=10, rand_count=10):
     """
     Write a function that generates rand_count random numbers. The numbers should be between
     rand_start and rand_end including both.
     """
+    return [random.randint(rand_start, rand_end) for _ in range(rand_count)]
 
 def exercise_7(astring):
     """
@@ -116,6 +126,13 @@ def exercise_7(astring):
     Remember lists and strings are sequences. You can use a for loop to loop over every
     character in a string.
     """
+    char_frequency = {}
+    for char in astring:
+        if char in char_frequency:
+            char_frequency[char] += 1
+        else:
+            char_frequency[char] = 1
+    return char_frequency
 
 def exercise_8(alist_of_strings):
     """
@@ -125,6 +142,11 @@ def exercise_8(alist_of_strings):
     Sample List : ['abc', 'xyz', 'aba', '1221']
     Expected Result : 2
     """
+    count = 0
+    for s in alist_of_strings:
+        if len(s) >= 2 and s[0] == s[-1]:
+            count += 1
+    return count
 
 def exercise_9_intro(a_list_of_numbers):
     """
@@ -132,6 +154,7 @@ def exercise_9_intro(a_list_of_numbers):
     Sample List: [100, 30, 7, 4, 9]
     Expected Result: [4, 7, 9, 30, 100]
     """
+    return sorted(a_list_of_numbers)
 
 def exercise_9(a_list_of_tuples):
     """
@@ -146,6 +169,7 @@ def exercise_9(a_list_of_tuples):
     Sample List : [(2, 5), (1, 2), (4, 4), (2, 3), (2, 1)]
     Expected Result : [(2, 1), (1, 2), (2, 3), (4, 4), (2, 5)]
     """
+    return sorted(a_list_of_tuples, key=lambda x: x[1])
 
 def exercise_10_intro(stringa, stringb):
     """
@@ -170,6 +194,9 @@ def exercise_10(astring):
     Sample String : ' w'
     Expected Result : Empty String
     """
+    if len(astring) < 3:
+        return ""
+    return astring[:2] + astring[-2:]
 
 def exercise_11(astring):
     """
@@ -181,6 +208,10 @@ def exercise_11(astring):
     Sample String : 'restart'
     Expected Result : 'resta$t'
     """
+    if not astring:
+        return ""
+    first_char = astring[0]
+    return first_char + astring[1:].replace(first_char, "$")
 
 def exercise_12(stringa,stringb):
     """
@@ -189,6 +220,11 @@ def exercise_12(stringa,stringb):
     Sample String : 'abc', 'xyz'
     Expected Result : 'xyc abz'
     """
+    if len(stringa) < 2 or len(stringb) < 2:
+        return "Both strings must have at least two characters."
+    new_stringa = stringb[:2] + stringa[2:]
+    new_stringb = stringa[:2] + stringb[2:]
+    return f"{new_stringa} {new_stringb}"
 
 def exercise_13(astring):
     """
@@ -200,7 +236,13 @@ def exercise_13(astring):
     Sample String : 'string'
     Expected Result : 'stringly'
     """
-
+    if len(astring) < 3:
+        return astring
+    if astring.endswith("ing"):
+        return astring + "ly"
+    else:
+        return astring + "ing"
+    
 def exercise_14(astring):
     """
     Write a function to find the first appearance of the substring 'not' and 'poor' from a given string, if 'poor'
@@ -209,57 +251,114 @@ def exercise_14(astring):
     Sample String : 'The lyrics is not that poor!'
     Expected Result : 'The lyrics is good!'
     """
+    not_index = astring.find("not")
+    poor_index = astring.find("poor")
+    if not_index != -1 and poor_index != -1 and poor_index > not_index:
+        return astring[:not_index] + "good" + astring[poor_index + 4 :]
+    return astring
 
 def exercise_15(list_of_strings):
     """
     Write a function that takes a list of words and returns the longest one.
     """
+    if not list_of_strings:
+        return ""
+    return max(list_of_strings, key=len)
 
-def exercise_16():
+def exercise_16(input_value):
     """
     Write a function to test whether an input is an integer. Integers are instances of the class 'int'.
     Hint: https://docs.python.org/3/library/functions.html#isinstance
     """
-
-"""
-Exercise 17
-In this example we are using a class to model a simple shopping list.
-
-To use the shopping list we do:
->>> my_list = Excercise17ShoppingList()
->>> my_list.add_item('Banana', 0.80) # add one banana (amount defaults to 1)
->>> my_list.add_item('Milk 1l', 1.20, 3) # add three 1 liter bottles of milk
-
-At the end we can ask my_list.total_sum() and it should tell us 4.40.
-
-Implement the needed code for add_item and total_sum.
-
-"""
+    return isinstance(input_value, int)
+ 
 class Exercise17ShoppingList:
+    """
+    Exercise 17: Implement a simple shopping list class.
+    """
 
     def __init__(self):
+        """Initialize an empty shopping list."""
         self.list = []
 
     def add_item(self, item_name, item_price, item_amount=1):
-        pass
+        """
+     Add an item to the shopping list.
+
+        Args:
+        item_name (str): The name of the item.
+        item_price (float): The price of the item.
+        item_amount (int, optional): The amount of the item. Defaults to 1.
+        """
+        self.list.append((item_name, item_price, item_amount))
 
     def total_sum(self):
-        pass
+        """
+        Calculate the total sum of all items in the shopping list.
+
+        Returns:
+        float: The total sum of all items, rounded to 2 decimal places.
+        """
+        total = sum(
+            item_price * item_amount for _, item_price, item_amount in self.list
+        )
+        return round(total, 2)
 
 
+# Create and populate the shopping list for the test
+my_list = Exercise17ShoppingList()
+my_list.add_item("Banana", 0.80)
+my_list.add_item("Milk 1l", 1.20, 3)
 
-"""
-Exercise 18
-Create a class that will do a lottery of a list of people.
-Randomly choose n names from them group of people.
-"""
+
 class Exercise18Lottery:
+    """
+    Exercise 18: Implement a simple lottery class.
+    """
 
     def __init__(self):
-        pass
+        """Initialize an empty list of participants."""
+        self.participants = []
 
     def enter(self, name):
-        pass
+        """
+        Enter a participant into the lottery.
+
+        Args:
+        name (str): The name of the participant.
+        """
+        self.participants.append(name)
 
     def choose(self, number_of_people_to_choose):
-        pass
+        """
+        Choose winners from the lottery participants.
+
+        Args:
+        number_of_people_to_choose (int): The number of winners to choose.
+
+        Returns:
+        list: A list of randomly chosen winners.
+
+        Raises:
+        ValueError: If there are not enough participants to choose from.
+        """
+        if number_of_people_to_choose > len(self.participants):
+            raise ValueError("Not enough participants to choose from")
+        return random.sample(self.participants, number_of_people_to_choose)
+
+
+def exercise_18(participants, num_winners):
+    """
+    Exercise 18: Create a lottery from a list of participants and choose winners.
+
+    Args:
+    participants (list): A list of participant names.
+    num_winners (int): The number of winners to choose.
+
+    Returns:
+    list: A list of randomly chosen winners.
+    """
+    lottery = Exercise18Lottery()
+    for participant in participants:
+        lottery.enter(participant)
+    return lottery.choose(num_winners)

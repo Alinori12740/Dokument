@@ -1,6 +1,7 @@
 import n_in_a_row
 import pytest
 
+
 def trim_game(ascii_game):
     return '\n'.join([i.strip() for i in ascii_game.splitlines()])
 t = trim_game
